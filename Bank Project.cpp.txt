@@ -1,0 +1,141 @@
+
+
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	int attempts = 1;
+	const int CorectPIN { 3443 };
+	const int SuffBalance { 2000 };
+
+	const int Check_Balance = 1; //menu choices
+	const int Deposit_Money = 2;
+	const int Withdraw_Money { 3 };
+	const int Last_Transaction { 4 };
+	const int Exit { 5 };
+
+	int PIN = -1;
+	int balance{ 2000 };
+	int choice { 3 };
+	int Re_AddedMoney { 2 };
+	int Re_SubMoney { 4 };
+
+	char choice2 { 'e' };
+
+	cout << "Welcome! Please first enter your four digit PIN." << endl;
+	
+
+	while (attempts <= 3 && PIN != CorectPIN)
+	{
+		cout << "Enter your PIN." << endl;
+		cin >> PIN;
+
+		if (PIN == CorectPIN) {
+			cout << "Sucessfully Verified!" << endl;
+		}
+
+		else {
+			cout << "Incorrect PIN, Try again." << endl;
+			attempts++;
+		
+		}
+	}
+
+	if (attempts > 3) { cout << "Too many incorrect attempts, access denied." << endl; }
+
+	if (PIN == CorectPIN)
+
+	{
+		do
+
+		{
+			cout << "Please choose your options." << endl
+				<< "1. To check your balance, enter 1." << endl
+				<< "2. To deposit your money, enter 2." << endl
+				<< "3. To withdraw your money, enter 3." << endl
+				<< "4. To show your last transaction, enter 4. " << endl
+				<< "5. To exit the program, enter 5." << endl;
+
+			cin >> choice;
+
+			switch (choice)
+			{
+			case (Check_Balance):
+				cout << "Your curent Balance is " << balance << endl;    //case 1 checking money
+				break;
+
+			case (Deposit_Money):                                    //case 2 depositing money
+				cout << "Enter your amount to deposit." << endl;
+				cin >> Re_AddedMoney;
+
+				
+				if (Re_AddedMoney > 0) {
+					balance += Re_AddedMoney;
+				}
+
+				else { cout << "Invalid Input, Try Again." << endl; }
+				cout << "Your balance is now " << balance << endl;
+				break;
+
+			case (Withdraw_Money):                                //case 3 withdrawing money
+				cout << "Enter amount to withdraw." << endl;
+				cin >> Re_SubMoney;
+
+			
+					if (Re_SubMoney > 0)
+					{
+						balance -= Re_SubMoney;
+						while (balance < 0) {
+							cout << "You have exceeded your balance. Try again.";
+							cin >> Re_SubMoney;
+							balance += Re_SubMoney;
+						}
+						if (balance >= SuffBalance) {
+							cout << "Your balance is sufficient." << endl;
+						}
+						else { cout << "Your balance is insufficient." << endl; }
+					}
+					else { cout << "Invalid Input, Try Again." << endl; }
+	
+
+				cout << "Your balance is now " << balance << endl;
+				break;
+
+			case (Last_Transaction):
+
+				if (balance > SuffBalance)
+				{
+					cout << "You may have recently deposited or withdrawn some money." << endl
+						<< "Press A to check for your deposited money." << endl
+						<< "Press B to check for your withdrawn money." << endl;
+					cin >> choice2;
+
+					if (choice2 == 'A') {
+						cout << "Your deposited money is " << Re_AddedMoney << endl;
+						cout << "Your current balance is " << balance << endl;
+
+					}
+					if (choice2 == 'B') {
+						cout << "Your withdrawn money is " << Re_SubMoney << endl;
+						cout << "Your current balance is " << balance << endl;
+					}
+
+					else { cout << "Please enter one of the above choices." << endl; }
+
+				}
+				else { cout << "You have not deposited or withdrawn any money." << endl; }
+				//case 4 checking last transaction
+				break;
+
+			case (Exit):
+				cout << "You have exited the program. Goodbye!" << endl;
+				break;
+			}
+		} while (choice <= 4 && choice >= 1);
+	
+
+	} if (!(choice <= 4 && choice >= 1)) { cout << "The correct choices are from 1 to 5. Run the program again and select one of those." << endl; }
+
+
+}
